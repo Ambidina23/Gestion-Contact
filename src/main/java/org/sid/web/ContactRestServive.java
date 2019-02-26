@@ -32,7 +32,8 @@ public class ContactRestServive {
 	public Optional<Contact> getContact(@PathVariable Long id){
 		return contactRepository.findById(id);
 	}
-	@RequestMapping(value="/contact", method=RequestMethod.POST)
+	@CrossOrigin(origins = "http://localhost:8080/addContact")
+	@RequestMapping(value="/addContact", method=RequestMethod.POST)
 	public Contact save(@RequestBody Contact c){
 		return contactRepository.save(c);
 	}
@@ -44,12 +45,12 @@ public class ContactRestServive {
 		return contactRepository.chercher("%"+mc+"%", new PageRequest(page, size));
 	}
 
-	@RequestMapping(value="/contact/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value="/editContact/{id}", method=RequestMethod.PUT)
 	public Contact update(@PathVariable Long id, @RequestBody Contact c){
 			c.setId(id);
 			return contactRepository.save(c);
 	}
-	@RequestMapping(value="/contact/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value="/deleteContact/{id}", method=RequestMethod.DELETE)
 	public boolean supprimer(@PathVariable Long id){
 		contactRepository.deleteById(id);
 		return true;
